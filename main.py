@@ -79,6 +79,7 @@ def valida_mat():
     print("\nMat deve ser um numero valido de 1 a 999")
     valida_mat()
 
+# Tela menu Aluno
 def listar_alunos():
     ls_alunos = []
     
@@ -88,19 +89,23 @@ def listar_alunos():
 
         ls_alunos.append( " - ".join( [mat,nome] ) )
 
-    ls = "\n".join(ls_alunos)
+    ls = "\n    ".join(ls_alunos)
 
     menu_aluno = f"""
     ==================
-        Menu Aluno
+    ====Menu Aluno====
+        
 
-        { ls }
+    { ls }
 
-        0 - Finalizar Programa    
+    __________________________
+        0 - Finalizar Programa
+
     ==================
-    """.strip()
+    ==================
+    """
 
-    return 
+    return menu_aluno
 
 # Rodando o programa
 while True:
@@ -126,21 +131,13 @@ while True:
                 continue
             
             else:
-                print("|__A mat informada ja existe!")
+                print("|__A mat informada ja existe no sistema !")
                 input(MSG_ERRO)
 
         elif opc_selecionada == 2:
             os.system("cls")
 
-            menu_aluno = f"""
-            ==================
-                Menu Aluno
-
-                { listar_alunos() }
-
-                0 - Finalizar Programa    
-            ==================
-            """
+            menu_aluno = listar_alunos()
 
             print(menu_aluno)
 
