@@ -1,0 +1,51 @@
+Este trabalho consiste no desenvolvimento de um programa em console para calcular as
+médias dos alunos da FADAM. Serão informados a matrícula do aluno, o nome e as notas da
+AD1 e AD2. Caso a média da AD1 e AD2 não seja maior ou igual a 7,0, o sistema solicitará a
+digitação da ADF. Se a nota da ADF for menor que 5, o aluno será considerado reprovado, caso
+contrário, será considerado aprovado.
+
+# REGISTRO
+# 1 - Registrar dados do aluno ( Matricula , Nome )
+# 2 - Registrar notas AD1 e AD2 para cada aluno.
+
+# PROCESSO
+# 3 - Calcular media AD1 e AD2
+# 4 - Se media menor que 7 ( Solicitar ADF )
+# 5 - Se ADF for menor que 5 ( reprovado )
+# 6 - Se ADF for maior que 5 ( aprovado )
+
+# FUNCOES DO PROGRAMA
+# 7 - Possibiltar listar todos os alunos
+# 8 - Permitir atualização da nota
+
+# O sistema deve conter esses recursos
+    Variáveis até                       1,0
+    Expressões Aritméticas até          1,0
+    Expressões Lógicas até              1,0
+    Comandos de Entradas e Saídas até   1,0
+    Estruturas de Repetição até         2,0
+    Estruturas de Condição até          1,0
+    Vetores ou Matrizes até             2,0
+    Funções ou Classes até              1,0
+
+
+O programa deverá listar todos os alunos que foram digitados, assim como permitir a
+atualização das notas.
+
+3. Atendimento aos requisitos (0 a 10 pontos);
+
+4. Domínio sobre a linguagem utilizada (0 a 10 pontos);
+
+5. Recursos utilizados em sala de aula (0 a 10 pontos).
+
+    Requisito Pontuação
+    Variáveis até                       1,0
+    Expressões Aritméticas até          1,0
+    Expressões Lógicas até              1,0
+    Comandos de Entradas e Saídas até   1,0
+    Estruturas de Repetição até         2,0
+    Estruturas de Condição até          1,0
+    Vetores ou Matrizes até             2,0
+    Funções ou Classes até              1,0
+
+
