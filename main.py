@@ -1,6 +1,10 @@
 # REGISTRO
 # 1 - Registrar dados do aluno ( Matricula , Nome )
 # 2 - Registrar notas AD1 e AD2 para cada aluno.
+from selenium import webdriver
+from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.common.by import By
+from webdriver_manager.chrome import ChromeDriverManager
 
 import os
 
@@ -9,7 +13,7 @@ base_avaliacao = [0]*2
 base_aluno = []
 base_notas = []
 
-MAIN_MENU = """
+MENU_INICIAL = """
 ==================
     Menu Inicial
 
@@ -20,27 +24,32 @@ MAIN_MENU = """
 ==================
 """
 
-MSG_ERRO = "Opção invalida !"
+MSG_ERRO = "\n\nOpção invalida ou Erro !\n[Press qualquer tecla p continuar !]\n\n"
+MSG_FIM = "\n\nSistema finalizado\nBye bye!\n\n"
 
 class Aluno:
-    matricula:int   = None
+    matricula:str   = None
     nome:str        = None
     avaliacao       = base_avaliacao
 
-def novo_aluno( mat:int , nome:str ):
+def novo_aluno( mat:str , nome:str ):
 
     for b in base_aluno:
         if b.matricula == mat:
-            return "A matricula informada ja existe !"
+            # Se ja existeir essa mat metodo reotrno False
+            return False
 
     aluno           = Aluno()
     aluno.nome      = nome
     aluno.matricula = mat
+
+    base_aluno.append(aluno)
     
-    return  base_aluno.append(aluno)
+    return True
 
 def atualizar_nota( mat , qual_avaliacao , nota ):
-    "qual_avaliacao = Qual a avaliação AD1 ou AD2 ?\nnota= Nota obtida"
+    """qual_avaliacao = Qual a avaliação AD1 ou AD2 ?
+    nota= Nota obtida"""
 
     for b in base_aluno:
         mat_aluno = b.matricula
@@ -56,16 +65,48 @@ def atualizar_nota( mat , qual_avaliacao , nota ):
 
     return False
 
-def valida_nota():
+def valida_mat():
+    n = input('Matricula : ')
+
+    if n.isnumeric():
+        if int(n) < 1 or int(n) > 999:
+
+            print("\nMat deve ser um numero valido de 1 a 999")
+            return valida_mat()
+        
+        return "%03d" % int(n)
     
+    print("\nMat deve ser um numero valido de 1 a 999")
+    valida_mat()
+
+def listar_alunos():
+    ls_alunos = []
     
-    input()
+    for aluno in base_aluno:
+        mat = aluno.matricula
+        nome = aluno.nome
+
+        ls_alunos.append( " - ".join( [mat,nome] ) )
+
+    ls = "\n".join(ls_alunos)
+
+    menu_aluno = f"""
+    ==================
+        Menu Aluno
+
+        { ls }
+
+        0 - Finalizar Programa    
+    ==================
+    """.strip()
+
+    return 
 
 # Rodando o programa
 while True:
     os.system("cls")
 
-    print(MAIN_MENU)
+    print(MENU_INICIAL)
 
     try:
         opc_selecionada = int(
@@ -73,14 +114,44 @@ while True:
         )
 
         if opc_selecionada == 1:
+            mat = valida_mat()
+            nome = input('Nome : ')
+
+            result = novo_aluno(mat=mat , nome=nome)
+
+            if result:
+                for a in base_aluno:
+                    input(a.__dict__)
+
+                continue
             
-            result = novo_aluno()
+            else:
+                print("|__A mat informada ja existe!")
+                input(MSG_ERRO)
+
+        elif opc_selecionada == 2:
+            os.system("cls")
+
+            menu_aluno = f"""
+            ==================
+                Menu Aluno
+
+                { listar_alunos() }
+
+                0 - Finalizar Programa    
+            ==================
+            """
+
+            print(menu_aluno)
+
+            input(MSG_ERRO)
 
         if opc_selecionada == 0:
-            print("\n\nPrograma finalizado !\nBye Bye.")
+            print(MSG_FIM)
             break
+
     except:
-        print("\n" + MSG_ERRO + "\n")
+        input(MSG_ERRO)
 
 # PROCESSO
 # 3 - Calcular media AD1 e AD2
