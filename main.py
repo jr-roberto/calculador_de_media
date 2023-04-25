@@ -20,7 +20,7 @@ MENU_INICIAL = """
     1 - Adicionar aluno
     2 - Atualizar nota
 
-    0 - Finalizar Programa    
+    0 - Finalizar Programa  
 ==================
 """
 
@@ -68,16 +68,20 @@ def atualizar_nota( mat , qual_avaliacao , nota ):
 def valida_mat():
     n = input('Matricula : ')
 
-    if n.isnumeric():
-        if int(n) < 1 or int(n) > 999:
+    # Se texto retorna False
+    if not n.isnumeric():
+        print("\nMat deve ser um numero valido de 1 a 999")
+        return False
 
-            print("\nMat deve ser um numero valido de 1 a 999")
-            return valida_mat()
+    if n.isnumeric():
+        num = int(n)
         
-        return "%03d" % int(n)
-    
-    print("\nMat deve ser um numero valido de 1 a 999")
-    valida_mat()
+        if num > 0 and num < 1000:
+            return "%03d" % num
+
+        else:
+            print("\nMat deve ser um numero valido de 1 a 999")
+            return False
 
 # Tela menu Aluno
 def listar_alunos():
@@ -119,14 +123,20 @@ while True:
         )
 
         if opc_selecionada == 1:
-            mat = valida_mat()
+            mat = False
+
+            while mat == False:
+                mat = valida_mat()
+
             nome = input('Nome : ')
 
             result = novo_aluno(mat=mat , nome=nome)
 
+            input(result)
+
             if result:
                 for a in base_aluno:
-                    input(a.__dict__)
+                    input('a.__dict__')
 
                 continue
             
