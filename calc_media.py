@@ -211,8 +211,6 @@ while True:
                     if res_menu_al == 2:
                         calcular_media(res_lista)
 
-
-
     except:
         input(MSG_ERRO)
 
