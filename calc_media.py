@@ -20,16 +20,6 @@ class Aluno:
         # Media
         self.media = soma_notas / 2
 
-    def atualizar_nota( self , qual_avaliacao:str , nota:int ):
-        if qual_avaliacao == "AD1":
-            self.nota_ad1 = nota
-        
-        elif qual_avaliacao == "AD2":
-            self.nota_ad2 = nota
-        
-        elif qual_avaliacao == "ADF":
-            self.nota_adf = nota
-
     def lancar_nota_ad1( self , nota:int ):
         if self.nota_ad1 == 0:
             self.nota_ad1 = nota
@@ -134,22 +124,59 @@ def menu_aluno(id):
             print(f"    Nome   : {al.nome}\n\n\n")
             print(f"    Menu opçoes p o Aluno")
             print(f"    -----------------")
-            print(f"    1 - Atualizar AD1")
-            print(f"    2 - Atualizar AD2")
-            print(f"    3 - Atualizar AD1 e AD2\n")
-            print(f"    4 - Resultado média")
+            print(f"    1 - Atualizar AD1 e AD2")
+            print(f"    2 - Calcular Média")
+            print(f"    4 - Resultado Final")
             result = int(input(f"\n    Selecione uma opcao : "))
 
             break
 
     return result
 
-def atualiza_ad1(id):
+def atualiza_ad1_ad2(id):
+    id_atual = id
     for al in base_alunos:
         if al.id_na_lista == id:
-            nota = int(input("  Informe a nota AD1 : "))
+            nota = int(input("      Informe a nota AD1 : "))
+            
+            if nota < 0 or nota > 10:
+                print("A nota informada deve ser um numero Valido de 0 a 10")
+                input(MSG_ERRO)
+                atualiza_ad1_ad2(id_atual)
+
             al.nota_ad1 = nota
 
+            nota = int(input("      Informe a nota AD2 : "))
+
+            if nota < 0 or nota > 10:
+                print("A nota informada deve ser um numero Valido de 0 a 10")
+                input(MSG_ERRO)
+                atualiza_ad1_ad2(id_atual)
+
+            al.nota_ad2 = nota
+
+            al.calcular_media()
+
+            print(f"\n\n        O aluno {al.nome}")
+            print(f"        Teve resulta {al.nota_ad1} na AD1")
+            print(f"        Teve resulta {al.nota_ad2} na AD2")
+            input(f"        Sua media foi de { round(  al.media , 2 ) }")
+
+def calcular_media(id):
+    id_atual = id
+
+    for al in base_alunos:
+        if al.id_na_lista == id:
+            al.calcular_media()
+
+            media = round( al.media , 2 )
+
+            if media > 7.0:
+                input(f"        O aluno obteve média {media} e esta - [Aprovado]")
+            
+            elif media < 7.0:
+                print(f"        O aluno obteve média {media} e esta - [Reprovado]")
+                input(f"        Necessario realizar ADF")
 
 while True:
     comando_limp_tela()
@@ -179,7 +206,10 @@ while True:
                     res_menu_al = menu_aluno(res_lista)
 
                     if res_menu_al == 1:
-                        atualiza_ad1(res_lista)
+                        atualiza_ad1_ad2(res_lista)
+
+                    if res_menu_al == 2:
+                        calcular_media(res_lista)
 
 
 
